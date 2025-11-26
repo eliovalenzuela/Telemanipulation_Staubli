@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Cell version="2022.7.0.19197" xmlns="http://www.staubli.com/robotics/cell/1">
+  <File path="CS9\CS9.controller" />
+</Cell>
