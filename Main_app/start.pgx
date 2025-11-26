@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Programs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.staubli.com/robotics/VAL3/Program/2">
+  <Program name="start">
+    <Code><![CDATA[begin
+
+  bLockRotation = true
+  //call Su:startupCheck(false,true,true,nState)
+  sOPCRobotyReady = "Connected"
+
+  if true
+    //EVS volver a activar este if
+    if true
+      enablePower()
+      if(watch(isPowered(),5)==false)
+        sOutput="No se ha podido dar potencia al brazo"
+        popUpMsg(sOutput,3)
+      endIf
+      setMonitorSpeed(100)
+      bError=false
+      taskCreate "Init",20,Init()
+      taskCreate "IOread",20,IO()
+      //EN ESTA TAREA SE LE DA POTENCIA AL BRAZO 
+      //taskCreate "ToolChange",50,ToolChanger()
+      //taskCreate "PressTest", 50 , ForceTest()
+      taskCreate "PositionCtrl",100,MovementCtrl()
+      //taskCreateSync "HmiOpcUA",0.01,bSupervisor ,OpcInterface()
+      taskCreate "HmiOpcUA",100,OpcInterface()
+      taskCreateSync "ForceSensor",0.002,bSupervisorForce,ForceSensor()
+
+    endIf
+
+  endIf
+
+end]]></Code>
+  </Program>
+</Programs>

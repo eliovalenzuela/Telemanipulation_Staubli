@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Programs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.staubli.com/robotics/VAL3/Program/2">
+  <Program name="OpcInterface">
+    <Code><![CDATA[begin
+  //Para poder escribir valores a través de OPC UA tienes que registrarte en el servidor con algun usuario (user:maintenance , pass: spec_cal)
+  opcuaExport(sOPCRobotyReady,true)
+  opcuaExport(OpcPreciseMode,true)
+  opcuaExport(OpcPrecisionMovement,true)
+  opcuaExport(OpcStepsMovement,true)
+  opcuaExport(OpcStepsRotation,true)
+  
+  //opcuaExport(nRecordCmdX,true)
+  //opcuaExport(nRecordCmdY,true)
+  //opcuaExport(nRecordCmdID,true)
+  opcuaExport(desordenados,true)
+  opcuaExport(countrecord,true)
+  
+  opcuaExport(Fx,true)
+  opcuaExport(Fy,true)
+  opcuaExport(Fz,true)
+  opcuaExport(Tx,true)
+  opcuaExport(Ty,true)
+  opcuaExport(Tz,true)
+  opcuaExport(FxLimit,true)
+  opcuaExport(FyLimit,true)
+  opcuaExport(FzLimit,true)
+  opcuaExport(TxLimit,true)
+  opcuaExport(TyLimit,true)
+  opcuaExport(TzLimit,true)
+  opcuaExport(FxFlag,true)
+  opcuaExport(FyFlag,true)
+  opcuaExport(FzFlag,true)
+  opcuaExport(followHuman,true)
+  
+  opcuaExport(OPCrxcmdOut,true)
+  opcuaExport(OPCrycmdOut,true)
+  opcuaExport(OPCrzcmdOut,true)
+  opcuaExport(OPCGoHoming,true)
+  opcuaExport(OPCChangeTool,true)
+  
+  opcuaExport(launchAlter,true)
+  opcuaExport(launchManualJoint,true)
+  opcuaExport(launchToolChange,true)
+  opcuaExport(OPCSetZeroForces,true)
+  opcuaExport(btnToolChangeBolt,true)
+opcuaExport(btnToolChangeGrip,true)
+  
+  opcuaExport(OPCj1cmd,true)
+  opcuaExport(OPCj2cmd,true)
+  opcuaExport(OPCj3cmd,true)
+  opcuaExport(OPCj4cmd,true)
+  opcuaExport(OPCj5cmd,true)
+  opcuaExport(OPCj6cmd,true)
+  
+
+  //Velocidad de inicio en el SCADA
+  nSpeedRate=100
+
+
+
+  while true
+   
+    //logMsg(toString("8.4", OPCx))
+
+    
+//    if OPCChangeTool
+//      sOPCRobotyReady = "Restart"
+//      if flagOnceChangeTool == false
+//        while taskKill("PositionCtrl") != true
+//          //ESPERAR A QUE LA TAREA SE CIERRE
+//          delay(0)
+//        endWhile
+//        nAlterEndState=alterEnd()
+//        resetMotion()
+//        setMonitorSpeed(10)
+//        movej(jChange,tChanger,mNomSpeed)
+//        waitEndMove()
+//        taskCreate "PositionCtrl",100,AlterCtrl()
+//        //OPCChangeTool = false
+//        flagOnceChangeTool = true
+//      endIf
+//    else
+//      flagOnceChangeTool = false
+      
+//    endIf
+    
+    if OPCSetZeroForces
+      taskKill("ForceSensor")
+      taskCreateSync "ForceSensor",0.002,bSupervisorForce,ForceSensor()
+      OPCSetZeroForces = false
+    endIf
+    
+    delay(0)
+  
+  endWhile
+end]]></Code>
+  </Program>
+</Programs>

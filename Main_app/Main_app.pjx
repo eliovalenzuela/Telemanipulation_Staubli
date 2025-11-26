@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://www.staubli.com/robotics/VAL3/Project/3">
+  <Parameters version="s8.15.3Cs9_BS3337" stackSize="200000" millimeterUnit="true" />
+  <Programs>
+    <Program file="AlterCtrl.pgx" />
+    <Program file="DismountBolt.pgx" />
+    <Program file="DismountGripper.pgx" />
+    <Program file="ForceSensor.pgx" />
+    <Program file="Init.pgx" />
+    <Program file="IO.pgx" />
+    <Program file="ManualJoint.pgx" />
+    <Program file="MountBolt.pgx" />
+    <Program file="MountGripper.pgx" />
+    <Program file="MovementCtrl.pgx" />
+    <Program file="OpcInterface.pgx" />
+    <Program file="start.pgx" />
+    <Program file="stop.pgx" />
+    <Program file="ToolChanger.pgx" />
+  </Programs>
+  <Database>
+    <Data file="Main_app.dtx" />
+  </Database>
+  <Libraries>
+    <Library alias="Test" path="Disk://Test1/Test1.pjx" />
+    <Library alias="Su" path="Disk://safeUtilities/safeUtilities.pjx" />
+  </Libraries>
+</Project>

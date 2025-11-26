@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Programs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.staubli.com/robotics/VAL3/Program/2">
+  <Program name="ManualJoint">
+    <Code><![CDATA[begin
+  jHere = herej()
+  OPCj1cmd = jHere.j1
+  OPCj2cmd = jHere.j2
+  OPCj3cmd = jHere.j3
+  OPCj4cmd = jHere.j4
+  OPCj5cmd = jHere.j5
+  OPCj6cmd = jHere.j6
+  
+  while true
+    jJointRx.j1=OPCj1cmd
+    jJointRx.j2=OPCj2cmd
+    jJointRx.j3=OPCj3cmd
+    jJointRx.j4=OPCj4cmd
+    jJointRx.j5=OPCj5cmd
+    jJointRx.j6=OPCj6cmd
+    movej(jJointRx,flange,mAppro)
+    waitEndMove()
+  endWhile
+end]]></Code>
+  </Program>
+</Programs>

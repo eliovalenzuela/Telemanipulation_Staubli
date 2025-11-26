@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Programs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.staubli.com/robotics/VAL3/Program/2">
+  <Program name="IO">
+    <Code><![CDATA[begin
+
+  //Read and process external controller information
+  while bError==false
+    
+    nStart=clock()
+    nDelay = clock()-nStart
+    
+    bEstAtornillador=dDioEstAtornillador
+    bEstPinza=dDioEstPinza
+    bHerramientaRobot=dDioHerramientaRobot
+    bTLocked=dDioTLocked
+    bTUnlocked=dDioTUnlocked
+    dDioMoveGripper=bMoveGripper
+      
+    
+    if dESbutton == true
+      dDioEmergencyButton = true
+    else
+      dDioEmergencyButton = false
+    endIf
+    
+    if dDoor1 == true
+      dDioDoor1Status = true
+    else
+      dDioDoor1Status = false
+    endIf
+    
+    if dDoor2 == true
+      dDioDoor2Status = true
+    else
+      dDioDoor2Status = false
+    endIf
+
+    delay(0)
+  endWhile
+
+end]]></Code>
+  </Program>
+</Programs>

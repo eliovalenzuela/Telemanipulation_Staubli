@@ -1,0 +1,342 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.staubli.com/robotics/VAL3/Data/2">
+  <Datas>
+    <Data name="bBooltoNum" access="private" xsi:type="array" type="bool" size="1" />
+    <Data name="bBtnCtrlOpc" access="private" xsi:type="array" type="bool" size="1" />
+    <Data name="bBtnIntercambio" access="private" xsi:type="array" type="bool" size="1" />
+    <Data name="bError" access="private" xsi:type="array" type="bool" size="1" />
+    <Data name="bEstAtornillador" access="public" xsi:type="array" type="bool" size="1">
+      <Value key="0" value="true" />
+    </Data>
+    <Data name="bEstPinza" access="public" xsi:type="array" type="bool" size="1">
+      <Value key="0" value="true" />
+    </Data>
+    <Data name="bHerramientaRobot" access="public" xsi:type="array" type="bool" size="1">
+      <Value key="0" value="true" />
+    </Data>
+    <Data name="bOk" access="private" xsi:type="array" type="bool" size="1" />
+    <Data name="bTLocked" access="public" xsi:type="array" type="bool" size="1" />
+    <Data name="bTUnlocked" access="public" xsi:type="array" type="bool" size="1">
+      <Value key="0" value="true" />
+    </Data>
+    <Data name="btnToolChangeBolt" access="public" xsi:type="array" type="bool" size="1" />
+    <Data name="btnToolChangeGrip" access="public" xsi:type="array" type="bool" size="1" />
+    <Data name="validPos" access="private" xsi:type="array" type="bool" size="1" />
+    <Data name="dChangerValve" access="private" xsi:type="array" type="dio" size="1">
+      <Value key="0" link="ValveIO\valve1" />
+    </Data>
+    <Data name="dDioEstAtornillador" access="private" xsi:type="array" type="dio" size="1">
+      <Value key="0" link="CE061C2D-63EF-47EF-A59E-9D0AF6F8F85C" />
+    </Data>
+    <Data name="dDioEstPinza" access="private" xsi:type="array" type="dio" size="1">
+      <Value key="0" link="09F12A79-E04E-419B-9AAF-7725DDDBD1AC" />
+    </Data>
+    <Data name="dDioHerramientaRobot" access="private" xsi:type="array" type="dio" size="1">
+      <Value key="0" link="7E390559-96A8-403A-B445-689BBF355DEA" />
+    </Data>
+    <Data name="dDioTLocked" access="private" xsi:type="array" type="dio" size="1">
+      <Value key="0" link="F2CD6568-BB9E-49C8-A7B4-91D8A66F9C51" />
+    </Data>
+    <Data name="dDioTUnlocked" access="private" xsi:type="array" type="dio" size="1">
+      <Value key="0" link="60862B78-E473-4D73-B0A1-35126C8FEF27" />
+    </Data>
+    <Data name="fHaption" access="private" xsi:type="array" type="frame" size="1">
+      <Value key="0" x="107.807516" y="-386.531428" z="887.560715" rx="-89.0477411" ry="-149.698587" rz="0.421407" fatherId="world[0]" />
+    </Data>
+    <Data name="fToolChange" access="private" xsi:type="array" type="frame" size="1">
+      <Value key="0" x="615.030242" y="458.213417" z="150.671162" rx="-90.0936151" ry="30.458364" rz="89.118179" fatherId="world[0]" />
+    </Data>
+    <Data name="jChange" access="private" xsi:type="array" type="jointRx" size="1">
+      <Value key="0" j1="-4.0714236" j2="-3.552111" j3="129.273225" j4="106.087665" j5="68.799532" j6="6.346847" />
+    </Data>
+    <Data name="jHome" access="private" xsi:type="array" type="jointRx" size="1">
+      <Value key="0" j1="57.800006" j2="-37.780028" j3="119.215944" j4="179.0580443" j5="81.384924" j6="-131.0356711" />
+    </Data>
+    <Data name="jInitial" access="public" xsi:type="array" type="jointRx" size="1">
+      <Value key="0" j1="57.800006" j2="-37.780028" j3="119.215944" j4="179.0580443" j5="81.384924" j6="-131.0356711" />
+    </Data>
+    <Data name="jJointRx" access="public" xsi:type="array" type="jointRx" size="1" />
+    <Data name="jResult" access="private" xsi:type="array" type="jointRx" size="1" />
+    <Data name="jTouch" access="private" xsi:type="array" type="jointRx" size="1">
+      <Value key="0" j1="60.497505" j2="-107.87914" j3="120.00337332" j4="178.372552" j5="-48.125989" j6="4.636406" />
+    </Data>
+    <Data name="mAppro" access="private" xsi:type="array" type="mdesc" size="1">
+      <Value key="0" accel="5" vel="5" decel="5" leave="1" reach="1" />
+    </Data>
+    <Data name="mChange" access="private" xsi:type="array" type="mdesc" size="1">
+      <Value key="0" accel="10" vel="10" decel="10" leave="10" reach="10" />
+    </Data>
+    <Data name="mNomSpeed" access="private" xsi:type="array" type="mdesc" size="1">
+      <Value key="0" accel="50" vel="50" decel="50" />
+    </Data>
+    <Data name="OPCf1" access="public" xsi:type="array" type="num" size="1" />
+    <Data name="OPCf2" access="public" xsi:type="array" type="num" size="1" />
+    <Data name="OPCf3" access="public" xsi:type="array" type="num" size="1" />
+    <Data name="OPCf4" access="public" xsi:type="array" type="num" size="1" />
+    <Data name="OPCf5" access="public" xsi:type="array" type="num" size="1" />
+    <Data name="OPCf6" access="public" xsi:type="array" type="num" size="1" />
+    <Data name="OPCj1" access="public" xsi:type="array" type="num" size="1" />
+    <Data name="OPCj2" access="public" xsi:type="array" type="num" size="1" />
+    <Data name="OPCj3" access="public" xsi:type="array" type="num" size="1" />
+    <Data name="OPCj4" access="public" xsi:type="array" type="num" size="1" />
+    <Data name="OPCj5" access="public" xsi:type="array" type="num" size="1" />
+    <Data name="OPCj6" access="public" xsi:type="array" type="num" size="1" />
+    <Data name="OPCrx" access="public" xsi:type="array" type="num" size="1" />
+    <Data name="OPCry" access="public" xsi:type="array" type="num" size="1" />
+    <Data name="OPCrz" access="public" xsi:type="array" type="num" size="1" />
+    <Data name="OPCx" access="public" xsi:type="array" type="num" size="1" />
+    <Data name="OPCy" access="public" xsi:type="array" type="num" size="1" />
+    <Data name="OPCz" access="public" xsi:type="array" type="num" size="1" />
+    <Data name="nCmd" access="private" xsi:type="array" type="num" size="6" />
+    <Data name="nCmdTrans" access="private" xsi:type="array" type="num" size="6" />
+    <Data name="nI" access="private" xsi:type="array" type="num" size="1" />
+    <Data name="nJ" access="private" xsi:type="array" type="num" size="1" />
+    <Data name="nListForces" access="public" xsi:type="array" type="num" size="6" />
+    <Data name="nPos" access="private" xsi:type="array" type="num" size="1" />
+    <Data name="nRawUdp" access="private" xsi:type="array" type="num" size="48" />
+    <Data name="nState" access="private" xsi:type="array" type="num" size="1" />
+    <Data name="nTemp" access="private" xsi:type="array" type="num" size="1" />
+    <Data name="pActualPos" access="public" xsi:type="array" type="pointRx" size="1" />
+    <Data name="pPointRx" access="private" xsi:type="array" type="pointRx" size="1" />
+    <Data name="pTest" access="private" xsi:type="array" type="pointRx" size="1">
+      <Value key="0" x="-252.530153" y="263.294912" z="427.370916" rx="5.121571" ry="-7.129797" rz="162.640171" />
+    </Data>
+    <Data name="pTool1" access="private" xsi:type="array" type="pointRx" size="1">
+      <Value key="0" x="26.46" y="-161.846445" z="25.66398" rx="0.739769" ry="-0.0144029" rz="-134.866663" shoulder="lefty" elbow="epositive" wrist="wpositive" fatherId="fToolChange[0]" />
+    </Data>
+    <Data name="pTool2" access="private" xsi:type="array" type="pointRx" size="1">
+      <Value key="0" x="24.417771" y="213.35041" z="25.529958" rx="-0.30514" ry="-0.197907" rz="46.419643" shoulder="lefty" elbow="epositive" wrist="wpositive" fatherId="fToolChange[0]" />
+    </Data>
+    <Data name="sInfo" access="private" xsi:type="array" type="string" size="1">
+      <Value key="0" value="Cogiendo el atornillador." />
+    </Data>
+    <Data name="sOutput" access="private" xsi:type="array" type="string" size="1">
+      <Value key="0" value="No se ha podido dar potencia al brazo" />
+    </Data>
+    <Data name="sStringRaw" access="private" xsi:type="array" type="string" size="48" />
+    <Data name="tAtornillador" access="private" xsi:type="array" type="tool" size="1">
+      <Value key="0" x="-0.0903" y="-165.0894" z="43.1596" fatherId="tChanger[0]" />
+    </Data>
+    <Data name="tChanger" access="private" xsi:type="array" type="tool" size="1">
+      <Value key="0" z="62.5" fatherId="flange[0]" ioLink="ValveIO\valve1" ioOpen="0.5" ioClose="0.5" />
+    </Data>
+    <Data name="tPinza" access="private" xsi:type="array" type="tool" size="1">
+      <Value key="0" y="48.1055" z="146.1642" fatherId="tChanger[0]" />
+    </Data>
+    <Data name="tPuntero" access="private" xsi:type="array" type="tool" size="1">
+      <Value key="0" z="118" fatherId="flange[0]" />
+    </Data>
+    <Data name="tTeach" access="private" xsi:type="array" type="tool" size="1">
+      <Value key="0" z="90" fatherId="flange[0]" />
+    </Data>
+    <Data name="jGimbal" access="private" xsi:type="array" type="jointRx" size="1">
+      <Value key="0" j6="1" />
+    </Data>
+    <Data name="nSpeedRate" access="public" xsi:type="array" type="num" size="1" />
+    <Data name="dDioMoveGripper" access="public" xsi:type="array" type="dio" size="1">
+      <Value key="0" link="B2194EAF-1145-4C79-9BA9-5960C08FF7FC" />
+    </Data>
+    <Data name="bMoveGripper" access="public" xsi:type="array" type="bool" size="1" />
+    <Data name="bLockRotation" access="public" xsi:type="array" type="bool" size="1" />
+    <Data name="bManualJoint" access="public" xsi:type="array" type="bool" size="1" />
+    <Data name="bModeChanged" access="public" xsi:type="array" type="bool" size="1" />
+    <Data name="OPCj1cmd" access="public" xsi:type="array" type="num" size="1" />
+    <Data name="OPCj2cmd" access="public" xsi:type="array" type="num" size="1" />
+    <Data name="OPCj3cmd" access="public" xsi:type="array" type="num" size="1" />
+    <Data name="OPCj4cmd" access="public" xsi:type="array" type="num" size="1" />
+    <Data name="OPCj5cmd" access="public" xsi:type="array" type="num" size="1" />
+    <Data name="OPCj6cmd" access="public" xsi:type="array" type="num" size="1" />
+    <Data name="bCogerPinza" access="public" xsi:type="array" type="bool" size="1" />
+    <Data name="bCogerAtornillador" access="public" xsi:type="array" type="bool" size="1" />
+    <Data name="bDejarPinza" access="public" xsi:type="array" type="bool" size="1" />
+    <Data name="bDejarAtornillador" access="public" xsi:type="array" type="bool" size="1" />
+    <Data name="jStart" access="private" xsi:type="array" type="jointRx" size="1">
+      <Value key="0" j1="-6.36110936292703E-15" j2="4.98" j3="-90.18" j4="1.4230002260189E-21" j5="85.08" j6="6.36110860462371E-15" />
+    </Data>
+    <Data name="bSupervisor" access="private" xsi:type="array" type="bool" size="1" />
+    <Data name="countstring" access="private" xsi:type="array" type="num" size="1" />
+    <Data name="countrecord" access="private" xsi:type="array" type="num" size="1" />
+    <Data name="flagactive" access="private" xsi:type="array" type="bool" size="1" />
+    <Data name="lastReceived" access="private" xsi:type="array" type="num" size="1" />
+    <Data name="dDioDoor1Status" access="private" xsi:type="array" type="dio" size="1">
+      <Value key="0" link="7E2C1981-2091-4168-A4C7-3B8F54F93892" />
+    </Data>
+    <Data name="dDioDoor2Status" access="private" xsi:type="array" type="dio" size="1">
+      <Value key="0" link="DD4B0AAB-BB16-4B26-8EC1-F4B17697477E" />
+    </Data>
+    <Data name="dDioEmergencyButton" access="private" xsi:type="array" type="dio" size="1">
+      <Value key="0" link="70CCD0F6-6BE7-4533-984C-B059D9950979" />
+    </Data>
+    <Data name="dESbutton" access="private" xsi:type="array" type="dio" size="1">
+      <Value key="0" link="Rsi9IO\IusoA1" />
+    </Data>
+    <Data name="dDoor1" access="private" xsi:type="array" type="dio" size="1">
+      <Value key="0" link="Rsi9IO\IusiB1" />
+    </Data>
+    <Data name="dDoor2" access="private" xsi:type="array" type="dio" size="1">
+      <Value key="0" link="Rsi9IO\IusiA1" />
+    </Data>
+    <Data name="nStart" access="private" xsi:type="array" type="num" size="1" />
+    <Data name="nDelay" access="private" xsi:type="array" type="num" size="1" />
+    <Data name="diJ207J208_RE_PNS_I6" access="public" xsi:type="array" type="dio" size="1">
+      <Value key="0" link="09F12A79-E04E-419B-9AAF-7725DDDBD1AC" />
+    </Data>
+    <Data name="doJ207J208_RE_PNS_Q6" access="public" xsi:type="array" type="dio" size="1">
+      <Value key="0" link="5F8C0500-A0C2-418B-B33F-DA7D83872BF3" />
+    </Data>
+    <Data name="diJ207J208_RE_PNS_I2" access="public" xsi:type="array" type="dio" size="1">
+      <Value key="0" link="60862B78-E473-4D73-B0A1-35126C8FEF27" />
+    </Data>
+    <Data name="doJ207J208_RE_PNS_Q5" access="public" xsi:type="array" type="dio" size="1">
+      <Value key="0" link="70CCD0F6-6BE7-4533-984C-B059D9950979" />
+    </Data>
+    <Data name="doJ207J208_RE_PNS_Q3" access="public" xsi:type="array" type="dio" size="1">
+      <Value key="0" link="7E2C1981-2091-4168-A4C7-3B8F54F93892" />
+    </Data>
+    <Data name="diJ207J208_RE_PNS_I1" access="public" xsi:type="array" type="dio" size="1">
+      <Value key="0" link="7E390559-96A8-403A-B445-689BBF355DEA" />
+    </Data>
+    <Data name="diJ207J208_RE_PNS_I5" access="public" xsi:type="array" type="dio" size="1">
+      <Value key="0" link="826855D7-B3BE-4D72-B5FB-E89AA8CE1BC8" />
+    </Data>
+    <Data name="doJ207J208_RE_PNS_Q7" access="public" xsi:type="array" type="dio" size="1">
+      <Value key="0" link="89E313F4-BC69-4F53-99A0-AECEC5F380AE" />
+    </Data>
+    <Data name="doJ207J208_RE_PNS_Q2" access="public" xsi:type="array" type="dio" size="1">
+      <Value key="0" link="8EED7CAF-566F-42FA-AB95-4CE736BA248A" />
+    </Data>
+    <Data name="doJ207J208_RE_PNS_Q1" access="public" xsi:type="array" type="dio" size="1">
+      <Value key="0" link="957CEE52-2BF5-4DF0-8E67-FA620ACF6C14" />
+    </Data>
+    <Data name="doJ207J208_RE_PNS_Q0" access="public" xsi:type="array" type="dio" size="1">
+      <Value key="0" link="B2194EAF-1145-4C79-9BA9-5960C08FF7FC" />
+    </Data>
+    <Data name="diJ207J208_RE_PNS_I7" access="public" xsi:type="array" type="dio" size="1">
+      <Value key="0" link="CE061C2D-63EF-47EF-A59E-9D0AF6F8F85C" />
+    </Data>
+    <Data name="diJ207J208_RE_PNS_I4" access="public" xsi:type="array" type="dio" size="1">
+      <Value key="0" link="D971BF12-E116-4771-AC73-77C32A945796" />
+    </Data>
+    <Data name="doJ207J208_RE_PNS_Q4" access="public" xsi:type="array" type="dio" size="1">
+      <Value key="0" link="DD4B0AAB-BB16-4B26-8EC1-F4B17697477E" />
+    </Data>
+    <Data name="diJ207J208_RE_PNS_I3" access="public" xsi:type="array" type="dio" size="1">
+      <Value key="0" link="ECDEAE6F-FADA-4468-909E-1E4B6F2B874F" />
+    </Data>
+    <Data name="diJ207J208_RE_PNS_I0" access="public" xsi:type="array" type="dio" size="1">
+      <Value key="0" link="F2CD6568-BB9E-49C8-A7B4-91D8A66F9C51" />
+    </Data>
+    <Data name="SocketTCP" access="public" xsi:type="array" type="sio" size="1">
+      <Value key="0" link="Socket\ReceiveTcp" />
+    </Data>
+    <Data name="SocketUDP" access="public" xsi:type="array" type="sio" size="1">
+      <Value key="0" link="UdpSocket\ReceiveUdp" />
+    </Data>
+    <Data name="desordenados" access="private" xsi:type="array" type="num" size="1" />
+    <Data name="OpcPrecisionMovement" access="private" xsi:type="array" type="num" size="1" />
+    <Data name="trAlter" access="private" xsi:type="array" type="trsf" size="1" />
+    <Data name="nAlterBeginState" access="private" xsi:type="array" type="num" size="1" />
+    <Data name="pFinishAlter" access="private" xsi:type="array" type="pointRx" size="1">
+      <Value key="0" x="-336.628720241718" y="50" z="505.159108540589" rx="-5.05493480877665E-23" ry="1.40872651758736E-05" rz="-1.15631870617668E-21" shoulder="righty" elbow="enegative" wrist="wpositive" fatherId="world[0]" />
+    </Data>
+    <Data name="trAlterMove" access="private" xsi:type="array" type="trsf" size="1" />
+    <Data name="OpcStepsMovement" access="private" xsi:type="array" type="num" size="1" />
+    <Data name="nAlterState" access="private" xsi:type="array" type="num" size="1" />
+    <Data name="nAlterEndState" access="private" xsi:type="array" type="num" size="1" />
+    <Data name="pStart" access="private" xsi:type="array" type="pointRx" size="1">
+      <Value key="0" x="-336.829738845272" y="49.9999961803571" z="558.957317821961" rx="2.83367334814845E-09" ry="-0.115117715818688" rz="2.8115150816022E-12" shoulder="righty" elbow="enegative" wrist="wpositive" fatherId="world[0]" />
+    </Data>
+    <Data name="nRecordCmd" access="private" xsi:type="array" type="num" size="2010 3" />
+    <Data name="nRecordCmdX" access="private" xsi:type="array" type="num" size="10000" />
+    <Data name="nRecordCmdY" access="private" xsi:type="array" type="num" size="10000" />
+    <Data name="nRecordCmdID" access="private" xsi:type="array" type="num" size="10000" />
+    <Data name="sStringHistorical" access="private" xsi:type="array" type="string" size="10000" />
+    <Data name="almacenar" access="private" xsi:type="array" type="bool" size="1" />
+    <Data name="SocketUDPForceSensor" access="private" xsi:type="array" type="sio" size="1">
+      <Value key="0" link="UdpSocket\SocketUDPForceSensor" />
+    </Data>
+    <Data name="nRequestUDP" access="private" xsi:type="array" type="num" size="8" />
+    <Data name="nrxforce" access="private" xsi:type="array" type="num" size="1" />
+    <Data name="nDiagSocket" access="private" xsi:type="array" type="num" size="1" />
+    <Data name="nDiagSocket2" access="private" xsi:type="array" type="num" size="1" />
+    <Data name="nResponseUDP" access="private" xsi:type="array" type="num" size="36" />
+    <Data name="nResponses" access="private" xsi:type="array" type="num" size="1" />
+    <Data name="Fx" access="private" xsi:type="array" type="num" size="1" />
+    <Data name="Fy" access="private" xsi:type="array" type="num" size="1" />
+    <Data name="Fz" access="private" xsi:type="array" type="num" size="1" />
+    <Data name="Tx" access="private" xsi:type="array" type="num" size="1" />
+    <Data name="Ty" access="private" xsi:type="array" type="num" size="1" />
+    <Data name="Tz" access="private" xsi:type="array" type="num" size="1" />
+    <Data name="nTestfB" access="private" xsi:type="array" type="num" size="36" />
+    <Data name="nTestfBIN" access="private" xsi:type="array" type="num" size="288" />
+    <Data name="i" access="private" xsi:type="array" type="num" size="1" />
+    <Data name="bytenum" access="private" xsi:type="array" type="num" size="1" />
+    <Data name="cociente" access="private" xsi:type="array" type="num" size="1" />
+    <Data name="resto" access="private" xsi:type="array" type="num" size="1" />
+    <Data name="HEXNUMBER" access="private" xsi:type="array" type="num" size="4 2" />
+    <Data name="DECNUMBER" access="private" xsi:type="array" type="num" size="1" />
+    <Data name="j" access="private" xsi:type="array" type="num" size="1" />
+    <Data name="FxLimit" access="private" xsi:type="array" type="num" size="1" />
+    <Data name="FyLimit" access="private" xsi:type="array" type="num" size="1" />
+    <Data name="FzLimit" access="private" xsi:type="array" type="num" size="1" />
+    <Data name="TxLimit" access="private" xsi:type="array" type="num" size="1" />
+    <Data name="TyLimit" access="private" xsi:type="array" type="num" size="1" />
+    <Data name="TzLimit" access="private" xsi:type="array" type="num" size="1" />
+    <Data name="followHuman" access="private" xsi:type="array" type="bool" size="1" />
+    <Data name="bSupervisorForce" access="private" xsi:type="array" type="bool" size="1" />
+    <Data name="pPress1" access="private" xsi:type="array" type="pointRx" size="1">
+      <Value key="0" x="-336.870168433842" y="49.999992370606" z="579.007588648422" rx="2.8335220482869E-09" ry="-0.115113873837275" rz="2.84048267905755E-12" shoulder="righty" elbow="enegative" wrist="wpositive" fatherId="world[0]" />
+    </Data>
+    <Data name="pRelease1" access="private" xsi:type="array" type="pointRx" size="1">
+      <Value key="0" x="-336.829643365744" y="-50.1476616059199" z="558.909800775024" rx="-9.93639403181191E-07" ry="-0.115115185933709" rz="-9.61953709022073E-07" shoulder="righty" elbow="enegative" wrist="wpositive" fatherId="world[0]" />
+    </Data>
+    <Data name="pPress2" access="private" xsi:type="array" type="pointRx" size="1">
+      <Value key="0" x="-336.870134367357" y="-50.1476774705417" z="578.993918901558" rx="-2.56189918387667E-06" ry="-0.115109572206669" rz="-2.47515326511544E-06" shoulder="righty" elbow="enegative" wrist="wpositive" fatherId="world[0]" />
+    </Data>
+    <Data name="pRelease2" access="private" xsi:type="array" type="pointRx" size="1">
+      <Value key="0" x="-336.829650546973" y="-150.228261555763" z="558.909800434958" rx="-1.72565131768918E-06" ry="-0.11511397198566" rz="-1.69662426766672E-06" shoulder="righty" elbow="enegative" wrist="wpositive" fatherId="world[0]" />
+    </Data>
+    <Data name="pPress3" access="private" xsi:type="array" type="pointRx" size="1">
+      <Value key="0" x="-336.86978960782" y="-150.228255444793" z="578.871206987795" rx="-3.03400370196542E-07" ry="-0.115116778365496" rz="-2.63029287251087E-06" shoulder="righty" elbow="enegative" wrist="wpositive" fatherId="world[0]" />
+    </Data>
+    <Data name="sOPCRobotyReady" access="private" xsi:type="array" type="string" size="1" />
+    <Data name="OpcPreciseMode" access="private" xsi:type="array" type="bool" size="1" />
+    <Data name="pSlide1" access="private" xsi:type="array" type="pointRx" size="1">
+      <Value key="0" x="197.7" y="-267.76" z="591.67" rz="17.74" fatherId="world[0]" />
+    </Data>
+    <Data name="pSlide2" access="private" xsi:type="array" type="pointRx" size="1">
+      <Value key="0" x="-197.7" y="-267.76" z="595.22" rz="17.74" fatherId="world[0]" />
+    </Data>
+    <Data name="pSlide3" access="private" xsi:type="array" type="pointRx" size="1">
+      <Value key="0" x="-269.92" y="-408.17" z="595.21" rz="17.74" fatherId="world[0]" />
+    </Data>
+    <Data name="SocketUDPMySensor" access="private" xsi:type="array" type="sio" size="1">
+      <Value key="0" link="UdpSocket\SocketUDPMySensor" />
+    </Data>
+    <Data name="FxFlag" access="public" xsi:type="array" type="num" size="1" />
+    <Data name="FyFlag" access="public" xsi:type="array" type="num" size="1" />
+    <Data name="FzFlag" access="public" xsi:type="array" type="num" size="1" />
+    <Data name="OPCrxcmdOut" access="private" xsi:type="array" type="num" size="1" />
+    <Data name="OPCrycmdOut" access="private" xsi:type="array" type="num" size="1" />
+    <Data name="OPCrzcmdOut" access="private" xsi:type="array" type="num" size="1" />
+    <Data name="OpcStepsRotation" access="private" xsi:type="array" type="num" size="1" />
+    <Data name="OPCGoHoming" access="private" xsi:type="array" type="bool" size="1" />
+    <Data name="OpcPreciseModePrevious" access="private" xsi:type="array" type="bool" size="1" />
+    <Data name="auxencod" access="private" xsi:type="array" type="num" size="1" />
+    <Data name="nReplyMySensor" access="private" xsi:type="array" type="num" size="24" />
+    <Data name="OPCChangeTool" access="public" xsi:type="array" type="bool" size="1" />
+    <Data name="flagOnceChangeTool" access="private" xsi:type="array" type="bool" size="1" />
+    <Data name="flagAlter" access="private" xsi:type="array" type="bool" size="1" />
+    <Data name="launchAlter" access="private" xsi:type="array" type="bool" size="1" />
+    <Data name="launchManualJoint" access="private" xsi:type="array" type="bool" size="1" />
+    <Data name="launchToolChange" access="private" xsi:type="array" type="bool" size="1" />
+    <Data name="jHere" access="private" xsi:type="array" type="jointRx" size="1" />
+    <Data name="OPCSetZeroForces" access="private" xsi:type="array" type="bool" size="1" />
+    <Data name="prevlaunchAlter" access="private" xsi:type="array" type="bool" size="1" />
+    <Data name="prevlaunchManualJoint" access="private" xsi:type="array" type="bool" size="1" />
+    <Data name="prevlaunchToolChange" access="private" xsi:type="array" type="bool" size="1" />
+    <Data name="jResumeAlter" access="private" xsi:type="array" type="jointRx" size="1">
+      <Value key="0" j2="4.98" j3="-90.18" j5="85.08" />
+    </Data>
+  </Datas>
+</Database>

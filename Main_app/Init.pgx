@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Programs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.staubli.com/robotics/VAL3/Program/2">
+  <Program name="Init">
+    <Code><![CDATA[begin
+  
+  clearBuffer(SocketUDP)
+  resetMotion()
+  
+  launchAlter = true
+  launchManualJoint = false
+  launchToolChange = false
+  
+  OPCrxcmdOut = 0
+  OPCrycmdOut = 0
+  OPCrzcmdOut = 0
+  FxLimit = 10
+  FyLimit = 10
+  FzLimit = 10
+  OpcPrecisionMovement = 0.1
+  OpcStepsRotation = 0.01
+  OpcStepsMovement = 0.1
+  OpcPreciseMode = false
+  followHuman = false
+  trAlterMove = {0,0,0,0,0,0}
+  OPCGoHoming = false
+  trAlter={0,0,0,0,0,0}
+  delay(0)
+  
+end]]></Code>
+  </Program>
+</Programs>

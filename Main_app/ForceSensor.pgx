@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Programs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.staubli.com/robotics/VAL3/Program/2">
+  <Program name="ForceSensor">
+    <Code><![CDATA[begin
+  clearBuffer(SocketUDPForceSensor)
+  clearBuffer(SocketUDPMySensor)
+  while true
+  
+    //FRAME INIT = x1234  () COMMON TO ALL COMMANDS
+    nRequestUDP[0] = 18
+    nRequestUDP[1] = 52
+    
+    //COMMAND_SPEED	0x0082  
+    nRequestUDP[2] = 0
+    nRequestUDP[3] = 130
+    //DATA SPEED = 1
+    nRequestUDP[4] = 0
+    nRequestUDP[5] = 0
+    nRequestUDP[6] = 0
+    nRequestUDP[7] = 2
+    sioSet(SocketUDPForceSensor,nRequestUDP,8)
+    
+    //COMMAND_FILTER	0x0081  /* Command for setting filter */ /* 0 = No filter; 1 = 500 Hz; 2 = 150 Hz; 3 = 50 Hz; 4 = 15 Hz; 5 = 5 Hz; 6 = 1.5 Hz */
+    nRequestUDP[2] = 0
+    nRequestUDP[3] = 129
+    //FILTER = 1
+    nRequestUDP[4] = 0
+    nRequestUDP[5] = 0
+    nRequestUDP[6] = 0
+    nRequestUDP[7] = 1
+    sioSet(SocketUDPForceSensor,nRequestUDP,8)
+
+    //COMMAND_BIAS	0x0042  /* Command for toggle biasing */
+    nRequestUDP[2] = 0
+    nRequestUDP[3] = 66
+    // BIASING_OFF		0x00    /* Biasing off */
+    nRequestUDP[4] = 0
+    nRequestUDP[5] = 0
+    nRequestUDP[6] = 0
+    nRequestUDP[7] = 1
+    sioSet(SocketUDPForceSensor,nRequestUDP,8)
+    
+    //COMMAND_START	0x0002  /* Command for toggle biasing */
+    nRequestUDP[2] = 0
+    nRequestUDP[3] = 2
+    // SAMPLE_COUNT = 10
+    nRequestUDP[4] = 0
+    nRequestUDP[5] = 0
+    nRequestUDP[6] = 0
+    nRequestUDP[7] = 0
+    sioSet(SocketUDPForceSensor,nRequestUDP,8)
+    
+    //COMMAND_BIAS	0x0042  /* Command for toggle biasing */
+    nRequestUDP[2] = 0
+    nRequestUDP[3] = 66
+    // BIASING_ON		0xFF    /* Biasing on */
+    nRequestUDP[4] = 0
+    nRequestUDP[5] = 0
+    nRequestUDP[6] = 0
+    nRequestUDP[7] = 255    
+    nDiagSocket2 = sioSet(SocketUDPForceSensor,nRequestUDP,8)
+    nDiagSocket = sioGet(SocketUDPForceSensor,nResponseUDP)
+    
+    while nDiagSocket != -1
+      nDiagSocket = sioGet(SocketUDPForceSensor,nResponseUDP)
+      
+//      for j = 0 to 11 step 1
+//        nReplyMySensor[j] = nResponseUDP[j]
+//      endFor
+      
+      //Decodificamos las 6 componentes F/T
+      //Contador para las 6 componentes de F/T
+      for j = 0 to 5 step 1   
+        //1 Conversion dec->hex
+        //Contador para los 4 bytes de cada valor
+        bytenum = 0   
+        
+        while bytenum < 4
+        nReplyMySensor[(4*j) + bytenum] = nResponseUDP[12 + (4*j) + bytenum ]
+          cociente = nResponseUDP[12 + (4*j) + bytenum ]
+          for i=0 to 1 step 1
+            HEXNUMBER[bytenum,i] = cociente % 16 
+            cociente = roundDown(cociente / 16)
+          endFor
+          bytenum = bytenum + 1
+        endWhile
+      
+        //2 Concatenar y convertir hex -> dec
+        DECNUMBER = 0
+
+        //Caso numero negativo (hacer previamente complemento a 1)
+        if(HEXNUMBER[0,0] == 15)
+          DECNUMBER = DECNUMBER + (15 - (HEXNUMBER[3,0]))*power(16, 0)
+          DECNUMBER = DECNUMBER + (15 - (HEXNUMBER[3,1]))*power(16, 1)
+          DECNUMBER = DECNUMBER + (15 - (HEXNUMBER[2,0]))*power(16, 2)
+          DECNUMBER = DECNUMBER + (15 - (HEXNUMBER[2,1]))*power(16, 3)
+          DECNUMBER = DECNUMBER + (15 - (HEXNUMBER[1,0]))*power(16, 4)
+          DECNUMBER = DECNUMBER + (15 - (HEXNUMBER[1,1]))*power(16, 5)
+          DECNUMBER = DECNUMBER + (15 - (HEXNUMBER[0,0]))*power(16, 6)
+          DECNUMBER = DECNUMBER + (15 - (HEXNUMBER[0,1]))*power(16, 7)
+          DECNUMBER = -DECNUMBER
+          //Caso numero positivo
+        else
+          DECNUMBER = DECNUMBER + (HEXNUMBER[3,0])*power(16, 0)
+          DECNUMBER = DECNUMBER + (HEXNUMBER[3,1])*power(16, 1)
+          DECNUMBER = DECNUMBER + (HEXNUMBER[2,0])*power(16, 2)
+          DECNUMBER = DECNUMBER + (HEXNUMBER[2,1])*power(16, 3)
+          DECNUMBER = DECNUMBER + (HEXNUMBER[1,0])*power(16, 4)
+          DECNUMBER = DECNUMBER + (HEXNUMBER[1,1])*power(16, 5)
+          DECNUMBER = DECNUMBER + (HEXNUMBER[0,0])*power(16, 6)
+          DECNUMBER = DECNUMBER + (HEXNUMBER[0,1])*power(16, 7)
+          DECNUMBER = DECNUMBER
+        endIf
+
+      
+        //Asignamos el resultado a cada valor F/T con su factor de escala
+        auxencod = 0
+        switch j
+          case 0
+            Fx =  DECNUMBER/10000
+          break
+          case 1
+            Fy =  DECNUMBER/10000
+          break
+          case 2
+            Fz =  DECNUMBER/10000
+          break
+          case 3
+            Tx =  DECNUMBER/100000
+          break
+          case 4
+            Ty =  DECNUMBER/100000
+          break
+          case 5
+            Tz =  DECNUMBER/100000
+          break
+        
+          default
+          break
+        endSwitch
+      endFor
+      
+      //Comprobar si se superan los limites de fuerza en cada eje y activar flags para Unity
+      if Fx > FxLimit
+        FxFlag = 1
+      elseIf Fx < (-FxLimit)
+        FxFlag = -1
+      else  
+        FxFlag = 0
+      endIf
+      
+      if Fy > FyLimit
+        FyFlag = 1
+      elseIf Fy < (-FyLimit)
+        FyFlag = -1
+      else  
+        FyFlag = 0
+      endIf
+      
+      if Fz > FzLimit
+        FzFlag = 1
+      elseIf Fz < (-FzLimit)
+        FzFlag = -1
+      else  
+        FzFlag = 0
+      endIf
+      
+      
+      
+      //Datos enviados con payload adicional para experimentos de saturacion en la red
+      sioSet(SocketUDPMySensor,nReplyMySensor,24)
+      nResponses = nResponses + 1
+      delay(0)
+    endWhile
+    
+    //COMMAND_STOP	0x0000  /* Command for stop streaming */
+    nRequestUDP[2] = 0
+    nRequestUDP[3] = 0
+    // BIASING_OFF		0x00    /* Biasing off */
+    nRequestUDP[4] = 0
+    nRequestUDP[5] = 0
+    nRequestUDP[6] = 0
+    nRequestUDP[7] = 0
+    sioSet(SocketUDPForceSensor,nRequestUDP,8)
+    delay(4)
+    
+  endWhile
+end]]></Code>
+  </Program>
+</Programs>

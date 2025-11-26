@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Programs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.staubli.com/robotics/VAL3/Program/2">
+  <Program name="ToolChanger">
+    <Code><![CDATA[begin
+
+
+  //userPage("ToolChanger")
+  //delay(0.5)
+  //bOk=userPageConfirm("ATTENTION! Check the following points before press OK: 1-Tools are in place 2- Compressor and PLCs are powered 3-The arm can reach safely homing pose")
+  //watch(bOk==true,120)
+  
+  bManualJoint = false
+  btnToolChangeGrip = false
+  btnToolChangeBolt = false
+  bDejarPinza = false
+  bDejarAtornillador = false
+  
+
+  //HABILITAMOS POTENCIA, HABILITAMOS FLAGS, PERO NO MANDAMOS MOVIMIENTOS DESDE ESTA TAREA
+  if true
+    enablePower()
+    if(watch(isPowered(),5)==false)
+      sOutput="Power is required, check the status."
+      popUpMsg(sOutput,3)
+    endIf
+
+    // COMPROBAR QUE LAS HERRRAMIENTAS ESTAN EN LA ESTACION DE REPOSO O EQUIPADAS
+    if bHerramientaRobot==true
+      if bEstPinza==false and bEstAtornillador==false
+        disablePower()
+        userPageAlert("Error. Missing tool at parking station.")
+        bError=true
+
+      elseIf bEstPinza==true and bEstAtornillador==true
+        disablePower()
+        userPageAlert("Error. Tool sensors signal failure.")
+        bError=true
+
+      endIf
+    endIf
+
+
+    while bError==false
+
+      delay(1)
+      //CASOS EN LOS QUE NO HACEMOS NADA
+      if btnToolChangeBolt==true and btnToolChangeGrip==true
+        bCogerPinza=false
+        bCogerAtornillador=false
+        bDejarAtornillador=false
+        bDejarPinza=false
+        userPageAlert("Error. Two tools can not be equiped at the same time.")
+
+        //HERRAMIENTAS EN REPOSO Y QUEREMOS EQUIPAR ALGO
+      elseIf bHerramientaRobot==false and bEstAtornillador==true and bEstPinza==true and btnToolChangeGrip==true and btnToolChangeBolt==false
+        //bCogerPinza=true
+        call MountGripper()
+      elseIf bHerramientaRobot==false and bEstAtornillador==true and bEstPinza==true and btnToolChangeBolt==true and btnToolChangeGrip==false
+        //bCogerAtornillador=true
+        call MountBolt()
+        //HERRAMIENTA EQUIPADA Y QUEREMOS CAMBIAR A LA OTRA
+      elseIf bHerramientaRobot==true and bEstAtornillador==true and bEstPinza==false and btnToolChangeBolt==true and btnToolChangeGrip==false
+        //bDejarPinza=true
+        call DismountGripper()
+      elseIf bHerramientaRobot==true and bEstAtornillador==false and bEstPinza==true and btnToolChangeBolt==false and btnToolChangeGrip==true
+        //bDejarAtornillador=true
+        call DismountBolt()
+
+        //HERRAMIENTA EQUIPADA Y QUEREMOS DEJARLA
+      elseIf bHerramientaRobot==true and bEstAtornillador==true and bEstPinza==false and btnToolChangeBolt==false and btnToolChangeGrip==false
+        //bDejarPinza=true
+        call  DismountGripper()
+
+      elseIf bHerramientaRobot==true and bEstAtornillador==false and bEstPinza==true and btnToolChangeBolt==false and btnToolChangeGrip==false
+        //bDejarAtornillador=true
+        call DismountBolt()
+
+        //COMBINACIONES IMPOSIBLES
+        //elseIf btnToolChangeBolt==false and btnToolChangeGrip==false
+        //do nothing
+        //        bCogerPinza=false
+        //        bCogerAtornillador=false
+        //        bDejarAtornillador=false
+        //        bDejarPinza=false
+
+
+      else
+        //Exit while loop
+        //       bCogerPinza=false
+        //       bCogerAtornillador=false
+        //     bDejarAtornillador=false
+        //    bDejarPinza=false
+        //     userPageAlert("Error. UNKNOWN COMBINATION......Tools are not in place or sensors are failing.")
+        //   bError=true
+      endIf
+
+    endWhile
+
+  else
+
+    sInfo="Process has failed, check tool position and sensors."
+    disablePower()
+
+    delay(5)
+
+  endIf
+
+end]]></Code>
+  </Program>
+</Programs>

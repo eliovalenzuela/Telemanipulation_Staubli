@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Programs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.staubli.com/robotics/VAL3/Program/2">
+  <Program name="AlterCtrl">
+    <Code><![CDATA[begin
+  
+  for nPos=0 to 47 step 1
+    nRawUdp[nPos] = 0
+    endFor
+
+    clearBuffer(SocketUDP)
+    //
+    // Waits until an moveAlter is being execute.
+    do
+      nAlterBeginState=alterBegin(tChanger,mNomSpeed)
+      alterMovel(pFinishAlter,tChanger,mNomSpeed)
+    until nAlterBeginState==1
+    //This string is changed in OPCInterface
+    sOPCRobotyReady = "Connected"
+
+    //Recalculate Alter's trsf until finish moveAlter
+    while nAlterBeginState==1
+
+      sioGet(SocketUDP,nRawUdp)
+
+
+      //Reset vector for translation
+      for nPos=0 to 5 step 1
+        nCmd[nPos]=0
+      endFor
+
+      //CONVERT RAW ASCII TO STRING
+      for nPos=0 to 47 step 1
+        sStringRaw[nPos]=chr(nRawUdp[nPos])
+      endFor
+
+      //CONVERT STRING TO 6 VELOCITY VALUES
+      for nPos=0 to 5 step 1
+        nI=8*nPos
+        toNum(sStringRaw[nI+1],nTemp,bBooltoNum)
+        nCmd[nPos]=nCmd[nPos]+nTemp*100
+        toNum(sStringRaw[nI+2],nTemp,bBooltoNum)
+        nCmd[nPos]=nCmd[nPos]+nTemp*10
+        toNum(sStringRaw[nI+3],nTemp,bBooltoNum)
+        nCmd[nPos]=nCmd[nPos]+nTemp
+        toNum(sStringRaw[nI+5],nTemp,bBooltoNum)
+        nCmd[nPos]=nCmd[nPos]+nTemp/10
+        toNum(sStringRaw[nI+6],nTemp,bBooltoNum)
+        nCmd[nPos]=nCmd[nPos]+nTemp/100
+        
+        //sStringRaw empieza con el signo del valor
+        //Minus sign is 45 in ASCII
+        if sStringRaw[nI+0]=="-"
+          nCmd[nPos]=nCmd[nPos]*(-1)
+        endIf
+      endFor
+
+      //Transformacion de angulos y escalado de velocidad
+      nCmdTrans[0]=nCmd[0]*nSpeedRate/100
+      nCmdTrans[1]=nCmd[1]*nSpeedRate/100
+      nCmdTrans[2]=-nCmd[2]*nSpeedRate/100
+
+      if nCmd[5] != lastReceived
+        nRecordCmdX[countrecord] = OPCx
+        nRecordCmdY[countrecord] = OPCy
+        nRecordCmdID[countrecord] = nCmd[5]
+        //nRecordCmd[countrecord, 1] = OPCy
+        //nRecordCmd[countrecord, 2] = OPCz
+        if nCmd[5] != lastReceived + 1
+          desordenados = desordenados +1
+          almacenar = true
+        endIf
+        for nPos=0 to 47 step 1
+          sStringHistorical[countrecord] = insert (sStringHistorical[countrecord], sStringRaw[nPos], nPos)
+        endFor
+        countrecord = countrecord + 1
+        lastReceived = nCmd[5]
+        //logMsg(sStringRaw[nPos],4)
+      endIf
+    
+      trAlterMove.x=nCmd[0]
+      trAlterMove.y=nCmd[1]
+      trAlterMove.z=nCmd[2]
+      //Rotaciones se reciben por OPC en lugar del socket UDP 
+      trAlterMove.rx=OPCrxcmdOut
+      trAlterMove.ry=OPCrycmdOut
+      trAlterMove.rz=OPCrzcmdOut
+  
+      //Change movement ratio between robot and touch
+      if OpcPreciseMode != OpcPreciseModePrevious
+        if OpcPreciseMode
+          OpcPrecisionMovement = 0.01
+          OpcStepsMovement = 0.01
+          OpcPreciseModePrevious = true
+        else
+          OpcPrecisionMovement = 0.1
+          OpcStepsMovement = 0.1
+          OpcPreciseModePrevious = false
+        endIf
+      endIf
+  
+    
+      //MODO CONTROL POR POSICION-----------------------------------------------------------------------------------------------------
+      if followHuman == false
+        //EVS hay que filtrar para que no se mueva mas de una unidad la transformada cada 4ms (puede ser positivo o negativo)
+        //trAlter permite definir desplazamiento respecto al ptB (o el que se haya usado en la ultima orden altermove
+        //X      
+        //Desplazamiento +x
+        if((trAlterMove.x-trAlter.x)>OpcPrecisionMovement) and (FxFlag != -1)
+          trAlter.x=trAlter.x+OpcStepsMovement
+          //Desplazamiento -x
+        elseIf((trAlterMove.x-trAlter.x)<-OpcPrecisionMovement) and (FxFlag != 1)
+          trAlter.x=trAlter.x-OpcStepsMovement
+        endIf
+        //Y
+        //Desplazamiento +y
+        if((trAlterMove.y-trAlter.y)>OpcPrecisionMovement) and (FyFlag != -1)
+          trAlter.y=trAlter.y+OpcStepsMovement
+          //Desplazamiento -y
+        elseIf((trAlterMove.y-trAlter.y)<-OpcPrecisionMovement) and (FyFlag != 1)
+          trAlter.y=trAlter.y-OpcStepsMovement
+        endIf
+        //Z
+        //Desplazamiento +z
+        if((trAlterMove.z-trAlter.z)>OpcPrecisionMovement) and (FzFlag != -1)
+          trAlter.z=trAlter.z+OpcStepsMovement
+          //Desplazamiento -z
+        elseIf((trAlterMove.z-trAlter.z)<-OpcPrecisionMovement) and (FzFlag != 1)
+          trAlter.z=trAlter.z-OpcStepsMovement
+        endIf
+        //rX
+        if(trAlterMove.rx-trAlter.rx)>OpcPrecisionMovement
+          trAlter.rx=trAlter.rx+OpcStepsRotation
+        elseIf(trAlterMove.rx-trAlter.rx)<-OpcPrecisionMovement
+          trAlter.rx=trAlter.rx-OpcStepsRotation
+        endIf
+        //rY
+        if(trAlterMove.ry-trAlter.ry)>OpcPrecisionMovement
+          trAlter.ry=trAlter.ry+OpcStepsRotation
+        elseIf(trAlterMove.ry-trAlter.ry)<-OpcPrecisionMovement
+          trAlter.ry=trAlter.ry-OpcStepsRotation
+        endIf
+        //rZ
+        if(trAlterMove.rz-trAlter.rz)>OpcPrecisionMovement
+          trAlter.rz=trAlter.rz+OpcStepsRotation
+        elseIf(trAlterMove.rz-trAlter.rz)<-OpcPrecisionMovement
+          trAlter.rz=trAlter.rz-OpcStepsRotation
+        endIf
+  
+      else 
+        //MODO SEGUIMIENTO HUMANO ON----------------------------------------------------------------------------------------------------------
+    
+        //NECESITA FTSENSOR 
+        //Comprobar si la fuerza en el sentido de movimiento es mayor a la permitida
+        if Fx > FxLimit
+          trAlter.x = trAlter.x + OpcStepsMovement
+        elseIf Fx < (-FxLimit)
+          trAlter.x = trAlter.x - OpcStepsMovement
+        endIf
+        if Fy > FyLimit
+          trAlter.y = trAlter.y + OpcStepsMovement
+        elseIf Fy < (FyLimit*(-1))
+          trAlter.y = trAlter.y - OpcStepsMovement
+        endIf
+        if Fz > FzLimit
+          trAlter.z = trAlter.z + OpcStepsMovement
+        elseIf Fz < (-FzLimit)
+          trAlter.z = trAlter.z - OpcStepsMovement
+        endIf
+      
+      
+      endIf
+
+
+      nAlterState=alter(trAlter)
+      //sAlterState=toString("",nAlterState)+": "+sAlter[toString("",nAlterState)]
+    
+      pFinishAlter = here(tChanger,fToolChange)
+      jResumeAlter = herej()
+      delay(0)
+
+
+    endWhile
+    //
+    nAlterEndState=alterEnd()
+    //sAlterState=toString("",nAlterState)+": "+sAlterEnd[toString("",nAlterState)]
+end]]></Code>
+  </Program>
+</Programs>

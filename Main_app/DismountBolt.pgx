@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Programs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.staubli.com/robotics/VAL3/Program/2">
+  <Program name="DismountBolt">
+    <Code><![CDATA[begin
+  sInfo="Parking bolting tool..."
+        movej(jChange,tChanger,mNomSpeed)
+
+        bOk=watch(bTUnlocked==false and bTLocked==true,5)
+
+        if bOk==true
+          movej(appro(pTool2,{0,0,-200,0,0,0}),tChanger,mChange)
+          waitEndMove()
+          movel(pTool2,tChanger,mAppro)
+
+          bOk=watch(bEstAtornillador==true,20)
+          if bOk==true
+            dChangerValve=true
+            delay(0.1)
+            bOk=watch(bTUnlocked==true and bTLocked==false,5)
+
+            if bOk==true
+              movel(appro(pTool2,{0,0,-100,0,0,0}),tChanger,mChange)
+              bOk=watch(bHerramientaRobot==false,5)
+              if bOk==true
+                movej(jChange,tChanger,mNomSpeed)
+                waitEndMove()
+
+              else
+                disablePower()
+                userPageAlert("Error. Check parking station.")
+                bError=true
+
+              endIf
+
+            else
+              disablePower()
+              userPageAlert("Error. Tool can not be unlocked, check neumatic circuit.")
+              bError=true
+
+            endIf
+
+          else
+            disablePower()
+            userPageAlert("Error. Tool not detected at parking station")
+            bError=true
+
+          endIf
+
+        else
+          disablePower()
+          userPageAlert("Error. Tool can not be unlocked, check neumatic circuit")
+          bError=true
+        endIf
+end]]></Code>
+  </Program>
+</Programs>

@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Programs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.staubli.com/robotics/VAL3/Program/2">
+  <Program name="MountBolt">
+    <Code><![CDATA[begin
+  sInfo="Mounting bolting tool...."
+        movej(jChange,tChanger,mNomSpeed)
+        dChangerValve=true
+        bOk=watch(bTUnlocked==true and bTLocked==false,5)
+
+        if bOk==true
+          movej(appro(pTool2,{0,0,-100,0,0,0}),tChanger,mChange)
+          waitEndMove()
+          movel(pTool2,tChanger,mAppro)
+          bOk=watch(bHerramientaRobot==true,20)
+
+          if bOk==true
+            dChangerValve=false
+            delay(0.1)
+            bOk=watch(bTUnlocked==false and bTLocked==true,5)
+
+            if bOk==true
+              movel(appro(pTool2,{0,0,-200,0,0,0}),tChanger,mChange)
+              movej(jChange,tChanger,mNomSpeed)
+              waitEndMove()
+              sInfo="Bolting tool ready"
+            else
+              disablePower()
+              userPageAlert("Error. Tool not locked, check neumatic circuit.")
+              bError=true
+
+            endIf
+
+          else
+            disablePower()
+            userPageAlert("Error. Tool can not be equiped., check position")
+            bError=true
+
+          endIf
+
+        else
+          disablePower()
+          userPageAlert("Error. Tool can not be unlocked, check neumatic circuit.")
+          bError=true
+
+        endIf
+end]]></Code>
+  </Program>
+</Programs>
